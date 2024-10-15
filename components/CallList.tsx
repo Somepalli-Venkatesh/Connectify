@@ -1,4 +1,3 @@
-//@ts-nocheck
 'use client';
 
 import { Call, CallRecording } from '@stream-io/video-react-sdk';
@@ -14,7 +13,6 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
   const { endedCalls, upcomingCalls, callRecordings, isLoading } =
     useGetCalls();
   const [recordings, setRecordings] = useState<CallRecording[]>([]);
-
 
   const getCalls = () => {
     switch (type) {
@@ -79,9 +77,9 @@ const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
                   : '/icons/recordings.svg'
             }
             title={
-              (meeting as Call).state?.custom?.description?.substring(0,26) ||
-             meeting?.filename?.substring(0,20) ||
-              'Personal Meeting'
+              (meeting as Call).state?.custom?.description ||
+              (meeting as CallRecording).filename?.substring(0, 20) ||
+              'No Description'
             }
             date={
               (meeting as Call).state?.startsAt?.toLocaleString() ||
